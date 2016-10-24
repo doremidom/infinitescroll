@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game of Thrones Database</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+	
+	
+</head>
+<body>
+
+<h1>Every Game of Thrones Episode</h1>
+
+<div id="container">
+
+</div>
+
+
+<script>
+
+var season = 1
+var episodes
+
+function getEpisodes(season){
+	jQuery.ajax({
+    url: 'http://www.omdbapi.com/?t=Game%20of%20Thrones&Season=' + season,
+    method: 'GET',
+	}).done(function (response) {
+	    episodes = episodeArray(response)
+	    addEpisodes(episodes)
+	}).fail(function () {
+	    // do nothing
+	});
+}
+
+function episodeArray(json){
+	var episodes = json.Episodes 
+	return episodes
+}
+
+function addEpisodes(episodes){
+	for (var i in episodes){
+		var episode = episodes[i]
+		addEpisodeDiv(episode.Title, episode.Episode, episode.Released)
+	}
+}
+
+function addEpisodeDiv(title, number, date){
+	$('div#container').append("<div class='episode'><h2>"+ title + "</h2><h3>Episode " +number+"</h3><p>Released: " + date + "</p></div>")
+}
+
+getEpisodes(season)
+
+$(window).scroll(function() {
+   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+       season ++;
+       getEpisodes(season);
+   }
+});
+
+
+</script>
+
+</body>
+</html>
