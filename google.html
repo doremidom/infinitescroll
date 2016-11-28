@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+	#map {
+		height: 50%;
+    width: 50%;
+    margin: auto;
+	}
+  html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  #formbox{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+  }
+  label{
+    display: inline-block;
+  }
+	</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+<h1> label bedstuy</h1>
+<div id ="map"></div>
+
+<div id ="formbox" action="#" method="post">
+  <form id="form">
+    <label for ="coordinates">Enter a latitude and longitude:</label>
+    <input type="text" id="lat" minlength="2" name="lat" required>
+    <input type="text" id="lng" minlength="2" name="lng" required>
+
+    <label for="marker"> Enter a message to add to the marker</label>
+    <input type="text" id="marker" minlength="1" name="marker" required>
+    <br>
+    <button>submit</button>
+
+</form>
+
+</div>
+
+
+<script>
+	var map;
+	function initMap(){
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: 40.6854337, lng: -73.9384484},
+			zoom: 13
+		});
+
+    var tribeca = {lat: 40.719526, lng: -74.0089934};
+
+    function createMarker(forminfo){
+      var coordinates = forminfo[0]
+      var text = forminfo[1]
+
+      var marker = new google.maps.Marker({
+        position: coordinates,
+        map: map,
+        title:  text
+        });
+
+      return marker
+
+    }
+    //takes form input and makes it into an array with coordinates array and text
+    function parseForm(){
+      // var separated_info = forminput.split('&')
+      // alert(separated_info)
+      return 'hi'
+    }
+	}
+
+  $("#form").submit(function(){
+
+    var text = $("#form").serialize();
+
+    alert(parseForm())
+
+
+  })
+
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAydbVx1pAE36cVSPElvvsAJH1yGzJIgAw&callback=initMap"></script>
+
+</body>
+</html>

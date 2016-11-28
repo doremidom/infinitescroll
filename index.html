@@ -25,7 +25,7 @@ var episodes
 
 function getEpisodes(season){
 	jQuery.ajax({
-    url: 'http://www.omdbapi.com/?t=Game%20of%20Thrones&Season=' + season,
+    url: 'https://www.omdbapi.com/?t=Game%20of%20Thrones&Season=' + season,
     method: 'GET',
 	}).done(function (response) {
 	    episodes = episodeArray(response)
